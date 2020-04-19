@@ -65,10 +65,23 @@ def forever(num_procs: int = 2):
         print(output)
 
 
+def ask_forever():
+    out = run('python3 forever.py')
+
+    while out.poll() is None:
+        msg = input("Need input: ")
+
+        output, errors = out.communicate(msg)
+
+        print((output,errors), end='')
+
+    print(out.poll())
+
+
 
 def main(args):
 
-    forever()
+    ask_forever()
 
 
 if __name__ == '__main__':
