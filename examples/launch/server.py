@@ -2,6 +2,8 @@
 """
 Backend server.
 """
+import logging
+
 from flask import Flask
 
 
@@ -14,6 +16,8 @@ def index():
 
 
 def main(args):
+
+    logging.basicConfig(filename=args.log_file)
 
     app.run(
         host='0.0.0.0',
@@ -34,6 +38,9 @@ if __name__ == '__main__':
                         help="Whether or not to run in debug mode.",
                         default=False,
                         action='store_true')
+
+    parser.add_argument('--log_file',
+                        help="Log File")
 
     args = parser.parse_args()
     main(args)

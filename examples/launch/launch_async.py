@@ -94,12 +94,12 @@ def servers(num_procs: int = 2):
     for index in range(num_procs):
         port = 8000 + index
         logfile_name = f'server_{index}.log'
-        proc = run_no_in(f'python3 server.py --port {port}', logfile_name)
+        proc = run_no_in(f'python3 server.py --port {port} --log_file {logfile_name}', logfile_name)
         procs.append(proc)
 
     indexes = list(range(num_procs))
 
-    index_options = ','.join(indexes)
+    index_options = ','.join([str(index) for index in indexes])
 
     while True:
         proc_index = input(f"Choose proc [{index_options}]: ")
@@ -133,7 +133,7 @@ def servers(num_procs: int = 2):
 
 def main(args):
 
-    ask_forever()
+    servers()
 
 
 if __name__ == '__main__':
