@@ -14,16 +14,7 @@ def run(command):
 
     return proc
 
-
-def main(args):
-
-    # procs = []
-
-    # for _ in range(2):
-    #     proc = Popen()
-
-    # while True:
-        
+def ask():
     out = run('python3 ask.py')
 
     while out.poll() is None:
@@ -34,6 +25,18 @@ def main(args):
         print(output, end='')
 
     print(out.poll())
+
+
+def main(args):
+
+    # procs = []
+
+    # for _ in range(2):
+    #     proc = Popen()
+
+    # while True:
+        
+    pass
 
     # with open(output) as f:
     #     o = f.readlines()
