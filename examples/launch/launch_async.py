@@ -78,6 +78,58 @@ def ask_forever():
     print(out.poll())
 
 
+def run_no_in(command, log_file_name):
+    cmd_seq = split(command)
+
+    log_file = open(log_file_name, 'w+')
+
+    proc = Popen(cmd_seq, stdout=log_file)
+
+    return proc
+
+
+def servers(num_procs: int = 2):
+    procs = []
+
+    for index in range(num_procs):
+        port = 8000 + index
+        logfile_name = f'server_{index}.log'
+        proc = run_no_in(f'python3 server.py --port {port}', logfile_name)
+        procs.append(proc)
+
+    indexes = list(range(num_procs))
+
+    index_options = ','.join(indexes)
+
+    while True:
+        proc_index = input(f"Choose proc [{index_options}]: ")
+
+        proc_index = int(proc_index)
+
+        if proc_index == -1:
+            break
+        
+        print(f"Chosen proc({proc_index})")
+        proc = procs[proc_index]
+
+        msg = input("Command for proc: ")
+
+        if msg == 'pid':
+            pid = proc.pid
+            print(f"PID: {pid}")
+
+        elif msg == 'kill':
+            print(f"Killing proc({proc_index})")
+            proc.kill()
+
+        elif msg == 'quit':
+            print("Killing processes...")
+            kill_procs(procs)
+
+        else:
+            print("Invalid command, skipping...")
+            continue
+
 
 def main(args):
 
