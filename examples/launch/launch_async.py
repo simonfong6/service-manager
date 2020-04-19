@@ -30,7 +30,6 @@ def ask():
     print(out.poll())
 
 
-
 def kill_procs(procs: List[Popen]):
     for proc in procs:
         proc.kill()
